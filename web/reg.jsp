@@ -33,7 +33,7 @@
         <title>Registration</title>
     </head>
     <body>
-        <form name="form1"  onsubmit="return isValidate(this)">
+        <form name="form1"  method="post" action="registration.jsp" onsubmit="return isValidate(this)">
             <center>
             <table border="1" width="30%" cellpadding="5">
                 <thead>
@@ -65,7 +65,7 @@
                     </tr>                    
                     <tr>
                         <td>User Name</td>
-                        <td><input type="text" name="uname" value="" /></td>
+                        <td><input type="text" name="username" value="" /></td>
                     </tr>
                     <tr>
                         <td>Password</td>
