@@ -13,7 +13,7 @@
         <title>JSP Example</title>
     </head>
     <body>
-        <form method="post" >
+        <form method="post" action="login.jsp" >
             <center>
             <table border="1" width="30%" cellpadding="3">
                 <thead>
@@ -24,7 +24,7 @@
                 <tbody>
                     <tr>
                         <td>User Name</td>
-                        <td><input type="text" name="uname" value="" /></td>
+                        <td><input type="text" name="username" value="" /></td>
                     </tr>
                     <tr>
                         <td>Password</td>
