@@ -26,6 +26,8 @@
         <%
             }
         %>
+    <form name="searchForm"  method="post" action="Search">
+
     <center>
 <!--        <div id="searchBar" >
             <h2> Search Books</h2>
@@ -39,15 +41,15 @@
             <tbody>
                 <tr>
                     <td>Title</td>
-                    <td><input type="text" name="username" value="" /></td>
+                    <td><input type="text" name="title" value="" /></td>
                 </tr>
                 <tr>
                     <td>ISBN</td>
-                    <td><input type="password" name="pass" value="" /></td>
+                    <td><input type="text" name="isbn" value="" /></td>
                 </tr>
                 <tr>
                     <td>Author</td>
-                    <td><input type="password" name="pass" value="" /></td>
+                    <td><input type="text" name="author" value="" /></td>
                 </tr>
 
                 <thead>
@@ -58,5 +60,6 @@
             </tbody>
         </table>
     </center>
+    </form>>
 </body>
 </html>
