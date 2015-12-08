@@ -32,7 +32,9 @@ public class SearchServerlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
+        String username = (String) request.getSession().getAttribute("username");
         Class.forName("com.mysql.jdbc.Driver");
+        
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test",
             "root", "x");
         Statement st = con.createStatement();
@@ -42,13 +44,39 @@ public class SearchServerlet extends HttpServlet {
         String author = request.getParameter("author");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        out.println("Welcom " + username);
+       out.println("<center>");
+       out.println("Search Rusult");
+       out.println("<table border=\"1\" width=\"30%\" cellpadding=\"3\">");
+       
+        out.println("         <thead>\n" +
+"                <tr>\n" +
+"                    <th>Select</th>\n" +
+"                    <th>ISBN</th>\n" +
+"                    <th>Title</th>\n" +
+"                    <th># Copies</th>\n" +
+"                </tr>\n" +
+"            </thead>");
+        out.println("<tbody>");
         rs = st.executeQuery("select * from book_copy where isbn='" + isbn+ "'");
+        
         while(rs.next()){
-            out.print("hello");
+            out.println("<tr>\n");
+            out.println("<td>\n");
+            out.println("</td>\n");
+            out.println("<td>\n");
             out.println(rs.getString(1));
+            out.println("</td>");
+            out.println("<td>\n");
+            out.println(rs.getString(2));
+            out.println("</td>");
+            out.println("<td>\n");
+            out.println(rs.getString(6));
+            out.println("</td>");
+            out.println("</tr>");
         }
-
+        out.println("</tbody>");
+        out.println("</center>");
 //        try (PrintWriter out = response.getWriter()) {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
