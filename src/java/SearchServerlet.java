@@ -43,8 +43,12 @@ public class SearchServerlet extends HttpServlet {
         String isbn = request.getParameter("isbn");
         String author = request.getParameter("author");
         response.setContentType("text/html;charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
-        out.println("Welcom " + username);
+
+        out.println("Welcome " + username);
+        out.println("<a href='logout.jsp'>Log out</a>");
+               //s out.println(isbn+" title: "+ title + "author "+ author);
        out.println("<center>");
        out.println("Search Rusult");
        out.println("<table border=\"1\" width=\"30%\" cellpadding=\"3\">");
@@ -57,10 +61,16 @@ public class SearchServerlet extends HttpServlet {
 "                    <th># Copies</th>\n" +
 "                </tr>\n" +
 "            </thead>");
+
+        //rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' group by book_copy.ISBN" );
+//        if(!isbn.equals("")&&!title.equals("")&&!author.equals("")){
+//            
+//        }else if(!isbn.equals("")){ rs = searchISBN(st,isbn);}
+//        else 
+        rs = searchISBN(st,isbn,title,author);
         out.println("<tbody>");
-        rs = st.executeQuery("select * from book_copy where isbn='" + isbn+ "'");
-        
         while(rs.next()){
+                
             out.println("<tr>\n");
             out.println("<td>\n");
             out.println("</td>\n");
@@ -71,26 +81,13 @@ public class SearchServerlet extends HttpServlet {
             out.println(rs.getString(2));
             out.println("</td>");
             out.println("<td>\n");
-            out.println(rs.getString(6));
+            out.println(rs.getString(3));
             out.println("</td>");
             out.println("</tr>");
         }
         out.println("</tbody>");
         out.println("</center>");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet SearchServerlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet SearchServerlet at " + request.getContextPath() + "</h1>");
-//            out.println(title);
-//       
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -102,6 +99,34 @@ public class SearchServerlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
+    protected ResultSet searchISBN(Statement st, String isbn, String title, String author) throws SQLException{
+//        StringBuilder sb = new StringBuilder();
+//        if(!isbn.equals("")) sb.append( " book_copy.ISBN = '\" + isbn+ \"'");
+//        String str = sb.toString();
+//        return st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where " + str + " group by book_copy.ISBN" );
+        ResultSet rs = null;
+        if(!isbn.equals("")&&!title.equals("")&&!author.equals("")){
+           
+        }else if(!isbn.equals("")&&!title.equals("")){
+             rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' and title = '"+title+"' group by book_copy.ISBN" );
+        }else if(!title.equals("")&&!author.equals("")){
+            
+        }else if(!isbn.equals("")&&!author.equals("")){
+            
+        }else if(!isbn.equals("")){
+            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' group by book_copy.ISBN" );
+        }else if(!title.equals("")){
+            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where title = '" + title+ "' group by book_copy.ISBN" );
+        }else if(!author.equals("")){
+            //rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where author = '" + author+ "' group by book_copy.ISBN" );
+        }
+            
+        return rs;
+            
+    
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
