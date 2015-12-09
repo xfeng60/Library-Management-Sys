@@ -1,9 +1,8 @@
 <%-- 
-    Document   : index
-    Created on : Nov 28, 2015, 9:09:38 PM
+    Document   : staffLogin
+    Created on : Dec 9, 2015, 5:43:12 PM
     Author     : Xing
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,12 +12,12 @@
         <title>JSP Example</title>
     </head>
     <body>
-        <form method="post" action="login.jsp" >
+        <form method="post" action="Slogin.jsp" >
             <center>
             <table border="1" width="30%" cellpadding="3">
                 <thead>
                     <tr>
-                        <th colspan="2">User Login Here</th>
+                        <th colspan="2">Staff Login Here</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,11 +33,9 @@
                         <td><input type="submit" value="Login" /></td>
                         <td><input type="reset" value="Reset" /></td>
                     </tr>
+                   
                     <tr>
-                        <td colspan="2" align = "center">Yet Not Registered!! <a href="reg.jsp">Register Here</a></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align = "center"> Staff Login <a href="staffLogin.jsp"> Stuff Login</a></td>
+                        <td colspan="2" align = "center"> Regular User <a href="index.jsp"> User Login Here</a></td>
                     </tr>
                 </tbody>
             </table>
