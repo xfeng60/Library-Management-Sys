@@ -27,6 +27,7 @@
         %>
         Welcome <%=session.getAttribute("username")%>
         <a href='logout.jsp'>Log out</a>
+                <a href='myBooks.jsp'>My Account</a>
         <%
             }
         %>
