@@ -48,38 +48,46 @@ public class SearchServerlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
-
+        out.println("<script type=\"text/javascript\">");
+        out.println("function selectradio()\n" +
+"{\n" +
+"    var arr=document.getElementsByName(\"radio1\");\n" +
+              "var  i=0;" + 
+"    for(i=0;i<arr.length;i++)\n" +
+"    {\n" +
+"        if(arr[i].checked)\n" +
+"        {\n" +
+"            alert(arr[i].value)\n" +
+                "break;" +
+"        }\n" +
+"    }\n" +
+     " var t = document.getElementsByTagName(\"table\");\n" + 
+     "var rows = t.getElementsByTagName(\"tr\");\n" +
+     "alert(rows[i].cell[2].innerHTML)"+
+"}");
+        out.println("</script>");
+         out.println("<form action=\"borrow.jsp\" onsubmit=\"selectradio()\">");
         out.println("Welcome " + username);
         out.println("<a href='logout.jsp'>Log out</a>");
                //s out.println(isbn+" title: "+ title + "author "+ author);
      
         //rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' group by book_copy.ISBN" );
-//        if(!isbn.equals("")&&!title.equals("")&&!author.equals("")){
-//            
-//        }else if(!isbn.equals("")){ rs = searchISBN(st,isbn);}
-//        else 
+ 
         rs = searchBooks(st,isbn,title,author);
         
-//        if(rs.next()==false){
-//            out.println("<br> <h2>No result found</h2>");
-//            out.println("<a href='success.jsp'>Back</a>");
-//        }else{
-//           //rs.absolute(2);
-//            rs.first();
-        
-//            out.println("<br> <h2>No result found</h2>");
-//            out.println("<a href='success.jsp'>Back</a>");
            
-        
+
         out.println("<center>");
-       out.println("Search Rusult");
-       out.println("<table border=\"1\" width=\"30%\" cellpadding=\"3\">");
+       out.println("<h2>Search Rusult</h2>");
+              
+       out.println("<table  border=\"1\" width=\"30%\" cellpadding=\"3\">");
        
         out.println("         <thead>\n" +
 "                <tr>\n" +
 "                    <th>Select</th>\n" +
 "                    <th>ISBN</th>\n" +
 "                    <th>Title</th>\n" +
+"                    <th>Edition</th>\n" +
 "                    <th># Copies</th>\n" +
 "                </tr>\n" +
 "            </thead>");
@@ -88,7 +96,9 @@ public class SearchServerlet extends HttpServlet {
             while(rs.next()){
                 i++;
                 out.println("<tr>\n");
+                
                 out.println("<td>\n");
+                out.println("<input type=\"radio\" name=\"radio1\" value = rs.getString(1) > ");
                 out.println("</td>\n");
                 out.println("<td>\n");
                 out.println(rs.getString(1));
@@ -99,15 +109,22 @@ public class SearchServerlet extends HttpServlet {
                 out.println("<td>\n");
                 out.println(rs.getString(3));
                 out.println("</td>");
+                out.println("<td>\n");
+                out.println(rs.getString(4));
+                out.println("</td>");
                 out.println("</tr>");
             }
             out.println("</tbody>");
-            out.println("</center>");
+
             out.println("</table>");
+
             if(i==0){
                 out.println("<br> <h2>No result found</h2>");
             }
            out.println("<br><a href='success.jsp'>Back</a>");
+           out.println("<br><br><input type=\"submit\" value=\"Borrow\">");
+           out.println("</center>");
+           out.println("</form>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -129,20 +146,20 @@ public class SearchServerlet extends HttpServlet {
         ResultSet rs = null;
       
         if(!isbn.equals("")&&!title.equals("")&&!author.equals("")){
-           rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+ "' and book.isbn= '"+isbn+"' and title='"+title +"' group by book_copy.ISBN" );
+           rs = st.executeQuery("select book_copy.ISBN, TITLE, ,EDITION,count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+ "' and book.isbn= '"+isbn+"' and title='"+title +"' group by book_copy.ISBN" );
         }else if(!isbn.equals("")&&!title.equals("")){
-             rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' and title = '"+title+"' group by book_copy.ISBN" );
+             rs = st.executeQuery("select book_copy.ISBN, TITLE,EDITION, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' and title = '"+title+"' group by book_copy.ISBN" );
         }else if(!title.equals("")&&!author.equals("")){
-            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+"' and title = '"+title +"' group by book_copy.ISBN" );
+            rs = st.executeQuery("select book_copy.ISBN, TITLE, EDITION,count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+"' and title = '"+title +"' group by book_copy.ISBN" );
         }else if(!isbn.equals("")&&!author.equals("")){
-            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+"' and book.isbn = '"+isbn +"' group by book_copy.ISBN" );
+            rs = st.executeQuery("select book_copy.ISBN, TITLE,EDITION, count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+"' and book.isbn = '"+isbn +"' group by book_copy.ISBN" );
         }else if(!isbn.equals("")){
-            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' group by book_copy.ISBN" );
+            rs = st.executeQuery("select book_copy.ISBN, TITLE, EDITION,count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where book_copy.ISBN = '" + isbn+ "' group by book_copy.ISBN" );
         }else if(!title.equals("")){
-            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where title = '" + title+ "' group by book_copy.ISBN" );
+            rs = st.executeQuery("select book_copy.ISBN, TITLE, EDITION,count(*) from book inner join book_copy on book.ISBN=book_copy.ISBN where title = '" + title+ "' group by book_copy.ISBN" );
         }else if(!author.equals("")){
             
-            rs = st.executeQuery("select book_copy.ISBN, TITLE, count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+ "' group by book_copy.ISBN" );
+            rs = st.executeQuery("select book_copy.ISBN, TITLE,EDITION, count(*) from (book inner join book_copy on book.ISBN=book_copy.ISBN) inner join authors on book.ISBN=authors.ISBN where authors = '" + author+ "' group by book_copy.ISBN" );
         }
             
         return rs;
@@ -150,6 +167,7 @@ public class SearchServerlet extends HttpServlet {
     
     }
     @Override
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         

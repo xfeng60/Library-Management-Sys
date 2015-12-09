@@ -26,7 +26,7 @@
         <%
             }
         %>
-    <form name="searchForm"  method="post" action="Search">
+      
 
     <center>
 <!--        <div id="searchBar" >
@@ -35,34 +35,43 @@
         <table border="1" width="30%" cellpadding="3">
             <thead>
                 <tr>
-                    <th colspan="2">Search Books</th>
+                    <th colspan="3">Search Books</th>
                 </tr>
             </thead>
                   
             
             
             <tbody>
+                 <form name="searchTitle"  method="post" action="searchTitle.jsp">
                 <tr>
                     <td>Title</td>
                     <td><input type="text" name="title" value="" /></td>
+                    <td><input type="submit" value="Search"  /></</td>
                 </tr>
+                 </form>
+                 <form name="searchISBN"  method="post" action="search.jsp">
                 <tr>
                     <td>ISBN</td>
                     <td><input type="text" name="isbn" value="" /></td>
+                    <td><input type="submit" value="Search"/></</td>
                 </tr>
+                 </form>
+            <form name="searchAuthor"  method="post" action="searchAuthor.jsp">
                 <tr>
                     <td>Author</td>
                     <td><input type="text" name="author" value="" /></td>
+                    <td><input type="submit" value="Search" /></</td>
                 </tr>
+               </form>
 
-                <thead>
+<!--                <thead>
                 <tr>
                     <th colspan="2"><input type="submit" value="Search" /></</th>
                 </tr>
-            </thead>
+            </thead>-->
             </tbody>
         </table>
     </center>
-    </form>>
+    
 </body>
 </html>
