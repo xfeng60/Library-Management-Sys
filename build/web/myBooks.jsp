@@ -28,7 +28,7 @@
         <%
             }
         %>
-        
+
 
         <sql:query var="myBooks" dataSource="jdbc/libmanage">
             SELECT book.ISBN,book_copy.copy_num,TITLE,EDITION,PUBLISHER,Date_of_Issues,expected_return_date   
@@ -36,9 +36,9 @@
             where issues.username = '${sessionScope.username}'
             group by book_copy.isbn
         </sql:query>
-        <center>
-            <br>
-            <h2> My Books </h2>
+    <center>
+        <br>
+        <h2> My Books </h2>
         <table border="1">
             <!-- column headers -->
             <tr>
@@ -50,15 +50,38 @@
             <c:forEach var="row" items="${myBooks.rowsByIndex}">
                 <tr>
                     <c:forEach var="column" items="${row}">
-                        <td><c:out value="${column}"/></td>
+                        <td align="center"><c:out value="${column}"/></td>
                     </c:forEach>
                 </tr>
             </c:forEach>
         </table>
-                   <br>
-        <a href='success.jsp'>Search</a>
-        </center>
-      
 
-    </body>
+        <br>
+        <h3> My Pending Penalty </h3>
+        <sql:query var="penalty" dataSource="jdbc/libmanage">
+            SELECT penalty FROM regularuser
+            where username = '${sessionScope.username}'
+        </sql:query>
+
+        <table border="1">
+            <!-- column headers -->
+            <tr>
+                <c:forEach var="columnName" items="${penalty.columnNames}">
+                    <th><c:out value="${columnName}"/></th>
+                    </c:forEach>
+            </tr>
+            <!-- column data -->
+            <c:forEach var="row" items="${penalty.rowsByIndex}">
+                <tr>
+                    <c:forEach var="column" items="${row}">
+                        <td align="center"><c:out value="${column}"/></td>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+        </table>
+        <br>
+        <a href='success.jsp'>Search For Books</a>
+
+    </center>
+</body>
 </html>
