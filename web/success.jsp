@@ -11,7 +11,9 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
-        <title>Welcome</title>>
+        <title>Welcome</title>
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        
     </head>>
     <body>
         <%
@@ -30,10 +32,11 @@
       
 
     <center>
+        <h2>Search Books</h2>
 <!--        <div id="searchBar" >
             <h2> Search Books</h2>
         </div>-->
-        <table border="1" width="30%" cellpadding="3">
+<!--        <table  border="1" width="30%" cellpadding="3">
             <thead>
                 <tr>
                     <th colspan="3">Search Books</th>
@@ -63,15 +66,51 @@
                     <td><input type="text" name="author" value="" /></td>
                     <td><input type="submit" value="Search" /></</td>
                 </tr>
-               </form>
+               </form>-->
+<form class="form-inline"  name="searchTitle"  method="post" action="searchTitle.jsp">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Sea()</label>
+    <div class="input-group">
+      <div class="input-group-addon">*</div>
+      <input type="text" class="form-control" name="title" placeholder="title">
+  
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary"> Search </button>
+</form> 
+
+<form class="form-inline"  name="searchISBN"  method="post" action="search.jsp">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Sea2()</label>
+    <div class="input-group">
+      <div class="input-group-addon">*</div>
+      <input type="text" class="form-control" name="isbn" placeholder="isbn">
+     
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary"> Search </button>
+</form>
+  
+<form class="form-inline"  name="searchAuthor"  method="post" action="searchAuthor.jsp">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Sea3()</label>
+    <div class="input-group">
+      <div class="input-group-addon">*</div>
+      <input type="text" class="form-control" name="author" placeholder="author">
+     
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary"> Search </button>
+  
+</form>
 
 <!--                <thead>
                 <tr>
                     <th colspan="2"><input type="submit" value="Search" /></</th>
                 </tr>
             </thead>-->
-            </tbody>
-        </table>
+<!--            </tbody>
+        </table>-->
     </center>
     
 </body>

@@ -10,9 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Example</title>
+                <link rel="stylesheet" href="static/css/bootstrap.min.css">
     </head>
     <body>
-        <form method="post" action="Slogin.jsp" >
+         <center>
+        <h2> Staff Login Here</h2>
+        <br>
+<!--        <form method="post" action="Slogin.jsp" >
             <center>
             <table border="1" width="30%" cellpadding="3">
                 <thead>
@@ -40,6 +44,36 @@
                 </tbody>
             </table>
             </center>
+        </form>-->
+
+
+
+         <form class="form-inline" method="get" action="Slogin.jsp">
+            <div class="form-group">
+                <label class="sr-only"  >username</label>
+                <input type="text" class="form-control" name="username" placeholder="username">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputPassword3">password</label>
+                <input type="password" class="form-control" type="password" name="pass" placeholder="Password">
+            </div>
+<!--            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+            </div>-->
+            <button type="submit" class="btn btn-default">Log in</button>
         </form>
+
+<!--        <br>
+        <h5>Yet Not Registered!! <a href="reg.jsp">Register Here</a></h5>-->
+        <br>
+        <h5>Refgular User <a href="index.jsp"> User Login</a></h5>
+
+
+
+
+
+
     </body>
 </html>
